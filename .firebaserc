@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "change-transact-209f1"
+  },
+  "targets": {
+    "change-transact-209f1": {
+      "hosting": {
+        "web": [
+          "web-app-ce59e"
+        ]
+      }
+    }
+  }
+}
