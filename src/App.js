@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Suspense, lazy } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import ScrollToTop from './containers/ScrollToTop';
+
+const Home = lazy(() => import('./pages/Home'));
+const NoMatch = lazy(() => import('./pages/NoMatch'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const Terms = lazy(() => import('./pages/Terms'));
+
+class App extends Component {
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
+	
+	render() {
+		return (
+			<ScrollToTop>
+				<Suspense fallback={<div className="hide">loading</div>}>
+					<Switch>
+						<Route exact path="/" component={Home} />
+						<Route exact path="/privacy-policy" component={PrivacyPolicy} />
+						<Route exact path="/terms-and-conditions" component={Terms} />
+						<Route component={NoMatch} />
+					</Switch>
+				</Suspense>
+			</ScrollToTop>
+		);
+	}
 }
 
 export default App;
